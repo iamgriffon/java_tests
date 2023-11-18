@@ -31,5 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
-*.json
-eclipse-formatter.xml
+./eclipse-formatter.xml
