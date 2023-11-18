@@ -12,27 +12,24 @@ public class Biblioteca {
     }
 
     public void adicionarLivro(String titulo, String autor, Integer ano, Integer edicao) {
-   	 if (titulo == null ) {
-         throw new NullPointerException("Nome inválido");
-     }
-   	 
-	 if (autor == null ) {
-         throw new NullPointerException("Autor inválido");
-     }
-	 
-	 if (ano == null) {
-         throw new IllegalArgumentException("Ano inválido");
-     } else if (ano <= Year.now().getValue()) {
-         Livro livro = new Livro(titulo, autor, ano, edicao);
-         livros.add(livro);
-     } else {
-         throw new IllegalArgumentException("Ano inválido.");
-     }
-	 
-	 if (edicao == null || edicao <= 0) {
-         throw new IllegalArgumentException("Edicao inválida");
-     }
-	 
+        if (titulo == null) {
+            throw new NullPointerException("Nome inválido");
+        }
+
+        if (autor == null) {
+            throw new NullPointerException("Autor inválido");
+        }
+
+        if (ano == null) {
+            throw new NullPointerException("Ano inválido");
+        } else if (ano > Year.now().getValue()) {
+            throw new IllegalArgumentException("Ano inválido.");
+        }
+
+        if (edicao == null || edicao <= 0) {
+            throw new IllegalArgumentException("Edicao inválida");
+        }
+
         Livro livro = new Livro(titulo, autor, ano, edicao);
         livros.add(livro);
     }
@@ -50,16 +47,26 @@ public class Biblioteca {
         return livros;
     }
 
-    public void atualizarLivro(String titulo, String novoTitulo, String novoAutor, Integer novoAno, Integer novaEdicao) {
+    public void atualizarLivro(String titulo, String novoTitulo, String novoAutor, Integer novoAno,
+            Integer novaEdicao) {
         Livro livro = buscarLivroPorTitulo(titulo);
-        if (livro != null) {
-            livro.setTitulo(novoTitulo);
-            livro.setAutor(novoAutor);
-            livro.setAno(novoAno);
-            livro.setEdicao(novaEdicao);
-        } else {
-            System.out.println("Livro não encontrado.");
+
+        if (livro == null) {
+            throw new NullPointerException("Livro não encontrado");
         }
+
+        if (novoTitulo == "" || novoAno > Year.now().getValue() || novoAutor == "" || novoAno <= 0 || novaEdicao <= 0) {
+            throw new IllegalArgumentException("Dado(s) invalido(s)");
+        }
+
+        if (novoAno == null || novoTitulo == null || novaEdicao == null || novoAno == null) {
+            throw new NullPointerException("Dados invalidos");
+        }
+
+        livro.setTitulo(novoTitulo);
+        livro.setAutor(novoAutor);
+        livro.setAno(novoAno);
+        livro.setEdicao(novaEdicao);
     }
 
     public void removerLivro(String titulo) {
