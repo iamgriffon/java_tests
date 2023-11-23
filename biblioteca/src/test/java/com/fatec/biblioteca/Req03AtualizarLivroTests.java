@@ -20,7 +20,17 @@ public class Req03AtualizarLivroTests {
   }
 
   @Test
-  void atualizarLivroTituloNulo() {
+  void atualizarLivroNulo1() {
+    Biblioteca biblioteca = new Biblioteca();
+    Livro livro = new Livro("Titulo", "Autor", 1992, 2);
+    biblioteca.adicionarLivro(livro.getTitulo(), livro.getAutor(), livro.getAno(), livro.getEdicao());
+    assertThrows(NullPointerException.class, () -> {
+      biblioteca.atualizarLivro(null, "NovoTitulo", livro.getAutor(), livro.getAno(), livro.getEdicao());
+    });
+  }
+
+  @Test
+  void atualizarLivroNulo2() {
     Biblioteca biblioteca = new Biblioteca();
     Livro livro = new Livro("Titulo", "Autor", 1992, 2);
     biblioteca.adicionarLivro(livro.getTitulo(), livro.getAutor(), livro.getAno(), livro.getEdicao());
